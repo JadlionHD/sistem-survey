@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "author": "JadlionHD <jadlion.dev@gmail.com>",
   "dependencies": {
     "@types/crypto-js": "^4.1.1",
     "@types/node": "18.11.9",
