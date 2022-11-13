@@ -27,8 +27,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   if (req.method !== "PUT" && !req.body && !req.body.survey_id) return res.status(400).json({ message: "No content", error: 400 });
 
-  // TERAKHIR ATUR YANG "SEBAGAI" DAN ENKRIPSI PASSWORD
   switch (session?.user.sebagai) {
+    case "1":
     case "3": {
       let survey: SurveyType = req.body.survey;
       let result = (await query("UPDATE `survey_kelas` SET `jadwal`=?,`struktur_kelas`=?,`inventaris`=?,`buku_daftar_kelas`=?,`jurnal_guru`=?,`buku_penerimaan_raport`=?,`leger`=?,`denah_kelas`=?,`tata_tertib_sekolah`=?,`buku_laporan`=?,`program_kerja`=? WHERE survey_kelas.id=?", [
