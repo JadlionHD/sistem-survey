@@ -7,7 +7,7 @@ const CryptoJS = require("crypto-js");
  * @returns {string}
  */
 function encrypt(data) {
-  return CryptoJS.AES.encrypt(data, process.env.ENCRYPT_SECRET);
+  return CryptoJS.AES.encrypt(data, process.env.ENCRYPT_SECRET).toString();
 }
 
 /**
@@ -16,7 +16,7 @@ function encrypt(data) {
  * @returns {string}
  */
 function decrypt(data) {
-  return CryptoJS.AES.decrypt(data, process.env.ENCRYPT_SECRET);
+  return CryptoJS.AES.decrypt(data, process.env.ENCRYPT_SECRET).toString(CryptoJS.enc.Utf8);
 }
 
 let args = process.argv.slice(2);
@@ -27,6 +27,6 @@ if (args[0] === "encrypt") {
   if (args[1]) console.log(encrypt(args[1]).toString());
   else console.log("Data yang mau dienkripsi wajib diisi!");
 } else if (args[0] === "decrypt") {
-  if (args[1]) console.log(decrypt(args[1]).toString(CryptoJS.enc.Utf8));
+  if (args[1]) console.log(decrypt(args[1]));
   else console.log("Data enkripsi wajib diisi!");
 }
