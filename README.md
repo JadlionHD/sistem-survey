@@ -25,6 +25,10 @@ MYSQL_PASSWORD=PASSWORDMYSQL
 ENCRYPT_SECRET=SUPERSECRET # Default encrypt secretnya
 ```
 
+## Import database
+
+Untuk file sql buat import data-data mysqlnya ada [disini](https://github.com/JadlionHD/sistem-survey/tree/main/assets).
+
 ## Todo
 
 - [x] Wakil Kepala Sekolah & Administraotor bisa menambah, mengedit, menghapus, dan melihat seluruh survey.
