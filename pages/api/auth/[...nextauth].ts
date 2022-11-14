@@ -16,7 +16,6 @@ export const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(credentials, req) {
         const { username, password, sebagai } = credentials as LoginUser;
-        console.log(encrypt(password!));
         const result = (await query("SELECT id, username, password, nama_lengkap, sebagai FROM user WHERE username=? AND sebagai=?", [username, sebagai])) as { id: number; username: string; password: string; nama_lengkap: string; sebagai: string }[] | null;
         if (result !== null) {
           let resultDecrypted = decrypt(result[0].password);

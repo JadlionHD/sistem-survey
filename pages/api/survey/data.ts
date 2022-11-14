@@ -57,13 +57,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
           [`%${req.query.search}%`]
         )) as SurveyType[];
 
+        if (data === null) {
+          return res.status(400).json({ message: "Not found", error: 400 });
+        }
         return res.status(200).json(processData(data));
       }
       return res.status(200).json(processData(dataSurvey));
       break;
     }
     default: {
-      res.status(401).send({ message: "Not allowed", error: 401 });
+      res.status(401).json({ message: "Not allowed", error: 401 });
       break;
     }
   }

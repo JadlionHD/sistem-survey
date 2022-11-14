@@ -1,24 +1,47 @@
 import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavDropdown, Button, Card, Table, Form } from "react-bootstrap";
 import CheckList from "../components/CheckList";
 import HeadElement from "../components/HeadElement";
 import { DataSurvey } from "./api/survey/data";
+import style from "../styles/Style.module.css";
 
 export default function Dashboard() {
   const session = useSession();
   const [aksi, setAksi] = useState({ editing: false });
-  const [data, setData] = useState<DataSurvey[]>();
+  const [data, setData] = useState<DataSurvey[] | null>();
+
+  const searchHandle: FormEventHandler<HTMLElement> = (ev) => {
+    ev.preventDefault();
+    let target = ev.target as HTMLInputElement;
+
+    axios
+      .get(`/api/survey/data?q=getSpecificData&search=${target.value}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log("Failed, maybe not found?");
+        setData(null);
+      });
+  };
 
   useEffect(() => {
     if (session.status !== "authenticated") return;
-    axios.get("/api/survey/data?q=getAllData").then((res) => {
-      if (res.status === 200) {
-        setData(res.data);
-      }
-    });
+    axios
+      .get("/api/survey/data?q=getAllData")
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data);
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }, [session.status]);
 
   if (session.status === "unauthenticated") {
@@ -68,7 +91,7 @@ export default function Dashboard() {
                   <option value="20">20</option>
                 </Form.Select>
                 <Form className="ms-auto" style={{ width: "12.5rem" }}>
-                  <Form.Control type="search" placeholder="Search"></Form.Control>
+                  <Form.Control onChange={searchHandle} type="search" placeholder="Search kelas"></Form.Control>
                 </Form>
               </div>
               <Table responsive striped bordered hover variant="dark" className="text-center">
@@ -92,11 +115,15 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data
-                    ? data.map((v, i) => {
-                        return <CheckList key={i} no={i + 1} idKelas={v.survey_id!} kelas={{ wali_kelas: v.wali_kelas!, nama: v.kelas! }} survey={v.survey}></CheckList>;
-                      })
-                    : null}
+                  {data ? (
+                    data.map((v, i) => {
+                      return <CheckList key={i} no={i + 1} idKelas={v.survey_id!} kelas={{ wali_kelas: v.wali_kelas!, nama: v.kelas! }} survey={v.survey}></CheckList>;
+                    })
+                  ) : (
+                    <td colSpan={14} className="p-3">
+                      Empty
+                    </td>
+                  )}
                 </tbody>
               </Table>
             </Card.Body>
