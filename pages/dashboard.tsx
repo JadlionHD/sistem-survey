@@ -121,7 +121,7 @@ export default function Dashboard() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan={14} className="p-3">
+                      <td colSpan={15} className="p-3">
                         Empty
                       </td>
                     </tr>

@@ -1,3 +1,9 @@
+// File ini digunakan untuk melakukan encrypt/decrypt text dengan cara manual.
+// Biasanya file ini digunakan untuk melakukan testing pada struktur password di tabel database.
+// Untuk menggunakan file ini, maka usagenya seperti dibawah ini:
+// Usage: node enkripsi.js [encrypt | decrypt] [data]
+// Contoh: node enkripsi.js encrypt test123
+
 require("dotenv").config({ path: "../.env" });
 const CryptoJS = require("crypto-js");
 
