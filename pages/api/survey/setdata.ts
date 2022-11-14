@@ -46,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         req.body.survey_id
       ])) as { changedRows: number };
       if (result.changedRows === 1) res.status(200).json({ message: "OK", error: 200 });
-      else res.status(400).json({ message: "Failed", error: 400 });
+      else res.status(400).json({ message: "Failed, it might be the rows are not changed", error: 400 });
       break;
     }
     default: {

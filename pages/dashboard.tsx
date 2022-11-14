@@ -25,7 +25,7 @@ export default function Dashboard() {
         }
       })
       .catch((err) => {
-        console.log("Failed, maybe not found?");
+        console.log("Not found");
         setData(null);
       });
   };
@@ -120,9 +120,11 @@ export default function Dashboard() {
                       return <CheckList key={i} no={i + 1} idKelas={v.survey_id!} kelas={{ wali_kelas: v.wali_kelas!, nama: v.kelas! }} survey={v.survey}></CheckList>;
                     })
                   ) : (
-                    <td colSpan={14} className="p-3">
-                      Empty
-                    </td>
+                    <tr>
+                      <td colSpan={14} className="p-3">
+                        Empty
+                      </td>
+                    </tr>
                   )}
                 </tbody>
               </Table>

@@ -42,7 +42,7 @@ export default function CheckList({ no, kelas, survey, idKelas }: CheckListType)
       .catch((err) => {
         setLoading(false);
         setAksi({ editing: false });
-        alert(err);
+        alert(err.response.data.message);
       });
   };
 
