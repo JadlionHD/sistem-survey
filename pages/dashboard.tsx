@@ -117,7 +117,7 @@ export default function Dashboard() {
                 <tbody>
                   {data ? (
                     data.map((v, i) => {
-                      return <CheckList key={i} no={i + 1} idKelas={v.survey_id!} kelas={{ wali_kelas: v.wali_kelas!, nama: v.kelas! }} survey={v.survey}></CheckList>;
+                      return <CheckList key={v.survey_id} no={i + 1} idKelas={v.survey_id!} kelas={{ wali_kelas: v.wali_kelas!, nama: v.kelas! }} survey={v.survey}></CheckList>;
                     })
                   ) : (
                     <tr>
