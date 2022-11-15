@@ -1,8 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { unstable_getServerSession } from "next-auth/next";
+import { getSession } from "next-auth/react";
 import { query } from "../../../utils/db";
-import { authOptions } from "../auth/[...nextauth]";
 import { SurveyType } from "./data";
 
 export interface SetDataType {
@@ -23,7 +22,7 @@ export interface SetDataType {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<SetDataType | SetDataType[] | { message: string; error: number }>) {
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getSession({ req });
 
   if (req.method !== "PUT" && !req.body && !req.body.survey_id) return res.status(400).json({ message: "No content", error: 400 });
 

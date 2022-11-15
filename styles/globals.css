@@ -1,5 +1,8 @@
 html,
 body {
+  color-scheme: dark;
+  color: white;
+  background-image: linear-gradient(to right, #004f4f, #9a9a9a);
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -14,12 +17,15 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
-    background: #131313;
+    background-image: linear-gradient(to right, #004f4f, #9a9a9a);
   }
-}
+} */
+
+/* #131313; */

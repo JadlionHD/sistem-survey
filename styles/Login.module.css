@@ -1,6 +1,13 @@
 .login {
-  width: 400px;
-  height: 300px;
+  width: 800px;
+  height: 355px;
   margin: 0 auto;
-  margin-top: 9rem;
+  margin-top: 11.5rem;
+  background-color: #131313;
+  border-radius: 10px;
+  opacity: 0.85;
+}
+
+.gambarImage {
+  margin-right: 8.5rem;
 }

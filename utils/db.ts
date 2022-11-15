@@ -9,14 +9,15 @@ const database = mysql({
   }
 });
 
-export async function query(query: string, values?: unknown[]) {
+export async function query(query: string, values?: unknown[]): Promise<unknown[] | { err?: unknown; changedRows?: number }> {
   try {
     const results = await database.query(query, values);
     await database.end();
 
     // @ts-ignore
     return results.length === 0 ? null : results;
-  } catch (error) {
-    return { error };
+  } catch (err) {
+    console.log(err);
+    return { err };
   }
 }

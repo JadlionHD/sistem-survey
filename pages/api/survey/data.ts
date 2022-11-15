@@ -1,8 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { unstable_getServerSession } from "next-auth/next";
+import { getSession } from "next-auth/react";
 import { query } from "../../../utils/db";
-import { authOptions } from "../auth/[...nextauth]";
 
 export interface SurveyType {
   survey_id?: number;
@@ -41,8 +40,7 @@ export interface DataSurvey {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<DataSurvey | DataSurvey[] | { message: string; error: number }>) {
-  const session = await unstable_getServerSession(req, res, authOptions);
-
+  const session = await getSession({ req });
   switch (session?.user.sebagai) {
     case "1":
     case "3": {
@@ -62,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }
         return res.status(200).json(processData(data));
       }
-      return res.status(200).json(processData(dataSurvey));
+      res.status(200).json(processData(dataSurvey));
       break;
     }
     default: {
